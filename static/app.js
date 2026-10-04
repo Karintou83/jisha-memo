@@ -65,14 +65,33 @@
     });
   }
 
-  var colors = { temple: "#8a4b2a", shrine: "#c0392b" };
-  var markers = points.map(function (p) {
-    var marker = L.circleMarker([p.lat, p.lng], {
-      radius: 8,
-      color: colors[p.type] || "#555",
-      weight: 2,
-      fillOpacity: 0.85,
+  // 国土地理院の地図記号にならい、神社は鳥居、寺院は卍で表す
+  var ICONS = {
+    shrine:
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor">' +
+      '<path d="M2 4.2 Q12 6.6 22 4.2 L22 6.6 Q12 8.6 2 6.6 Z"/>' + // 笠木（上の反った横木）
+      '<rect x="4.5" y="10" width="15" height="1.8"/>' + // 貫（下の横木）
+      '<rect x="6.2" y="7" width="2" height="14"/><rect x="15.8" y="7" width="2" height="14"/>' + // 柱
+      '<rect x="11.1" y="7.6" width="1.8" height="2.6"/>' + // 額束
+      "</g></svg>",
+    temple:
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" ' +
+      'stroke-linecap="square" d="M12 5V19M5 12H19M12 5H5M19 12V5M12 19H19M5 12V19"/></svg>',
+  };
+
+  function markerIcon(type) {
+    var kind = ICONS[type] ? type : "other";
+    return L.divIcon({
+      className: "site-marker site-marker--" + kind,
+      html: ICONS[type] || "",
+      iconSize: [30, 30],
+      iconAnchor: [15, 15],
+      popupAnchor: [0, -15],
     });
+  }
+
+  var markers = points.map(function (p) {
+    var marker = L.marker([p.lat, p.lng], { icon: markerIcon(p.type), title: p.name, riseOnHover: true });
     marker.bindPopup(preview(p), { className: "preview-popup", closeButton: !canHover, autoPan: !canHover });
     if (canHover) hoverPopup(marker, p.url);
     marker.point = p;
