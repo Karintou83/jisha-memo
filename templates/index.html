@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block body_class %}map-page{% endblock %}
+{% block content %}
+<div class="map-overlay">
+  <p class="summary">{{ sites | length }} 寺社・{{ visit_count }} 回の参拝</p>
+  {% if tags %}
+  <div class="filters">
+    <button type="button" class="tag is-active" data-tag="">すべて</button>
+    {% for tag in tags %}<button type="button" class="tag" data-tag="{{ tag }}">{{ tag }}</button>{% endfor %}
+  </div>
+  {% endif %}
+</div>
+{% include "_map.html" %}
+{% endblock %}
+{% block scripts %}<script src="static/app.js"></script>{% endblock %}

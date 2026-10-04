@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}{{ site.info.label }} - 寺社メモ{% endblock %}
+{% block content %}
+<article>
+  <h1>{{ site.info.label }}</h1>
+  <p class="site-meta">
+    {% if site.type_label %}{{ site.type_label }} · {% endif %}{{ site.info.located_in }}
+    {% for tag in site.entry.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+  </p>
+  {% if site.info.description %}<p>{{ site.info.description }}</p>{% endif %}
+
+  {% for image in site.images %}
+  <figure>
+    <img src="{{ image.thumb_url }}" alt="{{ site.info.label }}">
+    <figcaption>
+      <a href="{{ image.page_url }}">{{ image.file }}</a>
+      {% if image.artist %} / {{ image.artist }}{% endif %}
+      {% if image.license %} / {{ image.license }}{% endif %}
+    </figcaption>
+  </figure>
+  {% endfor %}
+
+  <h2>一言メモ</h2>
+  <ul class="visits">
+    {% for visit in site.visits %}
+    <li>
+      <span class="site-date">{{ visit.date }}</span>
+      {% if visit.goshuin %}<span class="badge">御朱印</span>{% endif %}
+      {% if visit.memo %}<p>{{ visit.memo }}</p>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+
+  {% if points %}{% include "_map.html" %}{% endif %}
+
+  <h2>リンク</h2>
+  <ul>
+    {% if site.info.official_website %}<li><a href="{{ site.info.official_website }}">公式サイト</a></li>{% endif %}
+    {% if site.info.jawiki_url %}<li><a href="{{ site.info.jawiki_url }}">Wikipedia（日本語版）</a></li>{% endif %}
+    <li><a href="https://www.wikidata.org/wiki/{{ site.id }}">Wikidata（{{ site.id }}）</a></li>
+  </ul>
+</article>
+{% endblock %}
+{% block scripts %}<script src="../static/app.js"></script>{% endblock %}

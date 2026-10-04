@@ -1,0 +1,25 @@
+[project]
+name = "jisha-memo"
+version = "0.1.0"
+description = "参拝した寺社を記録・可視化する静的サイト"
+requires-python = ">=3.11"
+dependencies = [
+    "Jinja2>=3.1",
+    "pydantic>=2.0",
+    "PyYAML>=6.0",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

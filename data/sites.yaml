@@ -1,0 +1,7 @@
+# wikidata: Wikidata の項目 ID
+# visits:   date（YYYY-MM）・memo・goshuin
+# tags / type（temple, shrine）/ photos（Commons のファイル名）は任意
+
+sites:
+  - wikidata: Q714828  # 伏見稲荷大社
+    visits: []
