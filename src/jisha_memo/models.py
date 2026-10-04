@@ -16,8 +16,8 @@ SiteType = Literal["temple", "shrine"]
 
 
 class Visit(BaseModel):
-    # 日付は年月まで。分からなければ省略できる
-    date: str | None = Field(default=None, pattern=r"^\d{4}-(0[1-9]|1[0-2])$")
+    # 日付は年月まで。月が分からなければ年だけ、どちらも分からなければ省略できる
+    date: str | None = Field(default=None, pattern=r"^\d{4}(-(0[1-9]|1[0-2]))?$")
     memo: str = ""
     goshuin: bool = False
 

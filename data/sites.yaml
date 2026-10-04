@@ -1,5 +1,5 @@
 # wikidata: Wikidata の項目 ID
-# visits:   date（YYYY-MM、省略可）・memo・goshuin
+# visits:   date（YYYY-MM。月が不明なら YYYY、省略可）・memo・goshuin
 # tags / type（temple, shrine）/ photos（Commons のファイル名）は任意
 
 sites:
@@ -385,6 +385,8 @@ sites:
     visits:
       - date: "2026-07"
         goshuin: true
+      - date: "2026-09"
+        goshuin: true
   - wikidata: Q3120766  # 寛永寺
     tags: [総本山・大本山]
     visits:
@@ -414,4 +416,31 @@ sites:
     tags: [世界遺産, 総本山・大本山]
     visits:
       - date: "2026-10"
+        goshuin: true
+  - wikidata: Q11549607  # 川越氷川神社
+    visits:
+      - date: "2026-03"
+        goshuin: true
+  - wikidata: Q3080561  # 喜多院
+    visits:
+      - date: "2026-03"
+        goshuin: true
+  - wikidata: Q1070863  # 興福寺
+    tags: [世界遺産, 総本山・大本山]
+    visits:
+      - date: "2026-02"
+        goshuin: true
+  - wikidata: Q708550  # 上野東照宮
+    visits:
+      - date: "2025-07"
+        goshuin: true
+  - wikidata: Q276830  # 晴明神社
+    visits:
+      - date: "2025-04"
+        goshuin: true
+  - wikidata: Q873645  # 知恩院
+    tags: [総本山・大本山]
+    visits:
+      - date: "2025"
+        memo: ミッドナイト念仏のときに参拝した。
         goshuin: true
