@@ -6,6 +6,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import shutil
@@ -113,6 +114,19 @@ def load_site_models(sites_path: Path, cache_path: Path) -> list[Site]:
     return sites
 
 
+def asset_version(static_dir: Path = STATIC_DIR) -> str:
+    """static/ の中身から作る短いハッシュ。
+
+    CSS・JS の URL に付けることで、更新後にブラウザが古いキャッシュを使い続けるのを防ぐ。
+    """
+    digest = hashlib.sha256()
+    for path in sorted(static_dir.rglob("*")):
+        if path.is_file():
+            digest.update(path.relative_to(static_dir).as_posix().encode())
+            digest.update(path.read_bytes())
+    return digest.hexdigest()[:10]
+
+
 def map_points(sites: list[Site], prefix: str = "") -> list[dict[str, object]]:
     return [
         {
@@ -136,6 +150,7 @@ def map_points(sites: list[Site], prefix: str = "") -> list[dict[str, object]]:
 def build(sites_path: Path = SITES_PATH, cache_path: Path = CACHE_PATH, output_dir: Path = OUTPUT_DIR) -> None:
     sites = load_site_models(sites_path, cache_path)
     env = Environment(loader=FileSystemLoader(TEMPLATES_DIR), autoescape=select_autoescape())
+    env.globals["asset_version"] = asset_version()
 
     if output_dir.exists():
         shutil.rmtree(output_dir)
