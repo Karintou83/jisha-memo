@@ -122,3 +122,10 @@ figcaption { font-size: 0.8rem; color: var(--muted); }
 .site-marker--temple { color: #5b3a8e; } /* 紫（僧衣・寺院の幕の色） */
 .site-marker--other { color: #555; }
 .site-marker--other::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: currentColor; }
+
+/* 狭い画面ではタグを 1 行にして横スクロールさせ、地図を隠さない */
+@media (max-width: 640px) {
+  .map-overlay .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .map-overlay .filters::-webkit-scrollbar { display: none; }
+  .map-overlay .filters .tag { flex: none; }
+}

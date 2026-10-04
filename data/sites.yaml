@@ -4,7 +4,7 @@
 
 sites:
   - wikidata: Q714828  # 伏見稲荷大社
-    tags: [総本宮]
+    tags: [総本宮, 二十二社, 日本三大稲荷]
     visits:
       - date: "2023-11"
         memo: 修学旅行で行った。
@@ -15,16 +15,19 @@ sites:
           奥の山にも道は続くが、まだ行ったことはない。いつか行ってみたいと思うのだが。
         goshuin: true
   - wikidata: Q270983  # 鹿苑寺（金閣寺）
+    tags: [世界遺産]
     visits:
       - date: "2023-11"
         memo: 修学旅行で行った。
         goshuin: true
   - wikidata: Q587371  # 龍安寺
+    tags: [世界遺産]
     visits:
       - date: "2023-11"
         memo: 修学旅行で行った。
         goshuin: true
   - wikidata: Q221716  # 清水寺
+    tags: [世界遺産, 総本山・大本山]
     visits:
       - date: "2023-11"
         memo: 修学旅行で行った。
@@ -33,7 +36,7 @@ sites:
         memo: 夜間拝観
         goshuin: true
   - wikidata: Q714559  # 春日大社
-    tags: [百人一首, 総本宮]
+    tags: [百人一首, 総本宮, 世界遺産, 二十二社]
     visits:
       - date: "2023-11"
         memo: 修学旅行で行った。
@@ -53,7 +56,7 @@ sites:
       - date: "2024-04"
         goshuin: true
   - wikidata: Q704962  # 宗像大社
-    tags: [総本宮]
+    tags: [総本宮, 世界遺産]
     visits:
       - date: "2024-04"
         goshuin: true
@@ -71,11 +74,13 @@ sites:
       - date: "2024-04"
         goshuin: true
   - wikidata: Q1202871  # 仁和寺
+    tags: [世界遺産, 総本山・大本山]
     visits:
       - date: "2024-08"
         memo: 京大のオープンキャンパスのついでに行った。
         goshuin: true
   - wikidata: Q257473  # 慈照寺（銀閣寺）
+    tags: [世界遺産]
     visits:
       - date: "2024-08"
         memo: 京大のオープンキャンパスのついでに行った。
@@ -87,7 +92,7 @@ sites:
         memo: 京大のオープンキャンパスのついでに行った。
         goshuin: true
   - wikidata: Q662176  # 北野天満宮
-    tags: [百人一首, 総本宮]
+    tags: [百人一首, 総本宮, 二十二社]
     visits:
       - date: "2024-08"
         memo: 京大のオープンキャンパスのついでに行った。
@@ -100,16 +105,17 @@ sites:
       - date: "2026-05"
         goshuin: true
   - wikidata: Q1060966  # 泉涌寺
+    tags: [総本山・大本山]
     visits:
       - date: "2025-04"
         goshuin: true
   - wikidata: Q701620  # 賀茂御祖神社（下鴨神社）
-    tags: [一宮]
+    tags: [一宮, 世界遺産, 二十二社]
     visits:
       - date: "2025-04"
         goshuin: true
   - wikidata: Q700448  # 賀茂別雷神社（上賀茂神社）
-    tags: [百人一首, 一宮]
+    tags: [百人一首, 一宮, 世界遺産, 二十二社]
     visits:
       - date: "2025-04"
         goshuin: true
@@ -138,19 +144,22 @@ sites:
       - date: "2026-02"
         goshuin: true
   - wikidata: Q1157585  # 大覚寺
-    tags: [百人一首]
+    tags: [百人一首, 総本山・大本山]
     visits:
       - date: "2025-06"
         goshuin: true
   - wikidata: Q1759226  # 天龍寺
+    tags: [世界遺産, 総本山・大本山]
     visits:
       - date: "2025-08"
         goshuin: true
   - wikidata: Q339859  # 四天王寺
+    tags: [総本山・大本山]
     visits:
       - date: "2025-08"
         goshuin: true
   - wikidata: Q615183  # 浅草寺
+    tags: [総本山・大本山]
     visits:
       - date: "2025-08"
         goshuin: true
@@ -167,6 +176,7 @@ sites:
       - date: "2025-08"
         goshuin: true
   - wikidata: Q249139  # 増上寺
+    tags: [総本山・大本山]
     visits:
       - date: "2025-08"
         goshuin: true
@@ -191,6 +201,7 @@ sites:
       - date: "2025-09"
         goshuin: true
   - wikidata: Q954860  # 円覚寺
+    tags: [総本山・大本山]
     visits:
       - date: "2025-09"
         goshuin: true
@@ -212,6 +223,7 @@ sites:
       - date: "2025-11"
         goshuin: true
   - wikidata: Q251682  # 祐徳稲荷神社
+    tags: [日本三大稲荷]
     visits:
       - date: "2026-01"
         goshuin: true
@@ -221,11 +233,12 @@ sites:
       - date: "2026-01"
         goshuin: true
   - wikidata: Q61094  # 平等院
+    tags: [世界遺産]
     visits:
       - date: "2026-02"
         goshuin: true
   - wikidata: Q710302  # 松尾大社
-    tags: [総本宮]
+    tags: [総本宮, 二十二社]
     visits:
       - date: "2026-02"
         goshuin: true
@@ -282,7 +295,7 @@ sites:
       - date: "2026-03"
         goshuin: true
   - wikidata: Q191763  # 厳島神社
-    tags: [一宮, 総本宮]
+    tags: [一宮, 総本宮, 世界遺産]
     visits:
       - date: "2026-03"
         goshuin: true
@@ -291,6 +304,7 @@ sites:
       - date: "2026-03"
         goshuin: true
   - wikidata: Q3012169  # 大聖院（廿日市市）
+    tags: [総本山・大本山]
     visits:
       - date: "2026-03"
         goshuin: true
@@ -330,12 +344,12 @@ sites:
       - date: "2026-05"
         goshuin: true
   - wikidata: Q11633343  # 豊受大神宮（伊勢神宮外宮）
-    tags: [神宮, 伊勢]
+    tags: [神宮, 伊勢, 二十二社]
     visits:
       - date: "2026-05"
         goshuin: true
   - wikidata: Q11581011  # 皇大神宮（伊勢神宮内宮）
-    tags: [神宮, 伊勢]
+    tags: [神宮, 伊勢, 二十二社]
     visits:
       - date: "2026-05"
         goshuin: true
@@ -363,11 +377,13 @@ sites:
       - date: "2026-07"
         goshuin: true
   - wikidata: Q3120766  # 寛永寺
+    tags: [総本山・大本山]
     visits:
       - date: "2026-08"
         memo: 不忍池弁天堂に参拝した。
         goshuin: true
   - wikidata: Q3083875  # 成田山新勝寺
+    tags: [総本山・大本山]
     visits:
       - date: "2026-08"
         goshuin: true
@@ -376,14 +392,17 @@ sites:
       - date: "2026-08"
         goshuin: true
   - wikidata: Q626535  # 本能寺
+    tags: [総本山・大本山]
     visits:
       - date: "2026-10"
         goshuin: true
   - wikidata: Q1046403  # 東寺
+    tags: [世界遺産, 総本山・大本山]
     visits:
       - date: "2026-10"
         goshuin: true
   - wikidata: Q460367  # 東大寺
+    tags: [世界遺産, 総本山・大本山]
     visits:
       - date: "2026-10"
         goshuin: true
