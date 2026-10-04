@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}寺社メモ{% endblock %}</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="{{ root }}static/style.css">
+  <link rel="stylesheet" href="{{ root }}static/style.css?v={{ asset_version }}">
 </head>
 <body class="{% block body_class %}{% endblock %}">
   <header class="site-header">

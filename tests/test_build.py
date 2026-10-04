@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from jisha_memo.build import build, excerpt
+from jisha_memo.build import asset_version, build, excerpt
 
 SITES_YAML = """
 sites:
@@ -126,3 +126,20 @@ def test_missing_cache_entry(tmp_path):
     cache.write_text("{}", encoding="utf-8")
     with pytest.raises(SystemExit, match="Q9"):
         build(sites, cache, tmp_path / "_site")
+
+
+def test_static_assets_are_versioned(built):
+    # 更新後に古い CSS・JS がキャッシュから使われないよう、URL に版を付ける
+    version = asset_version()
+    index = (built / "index.html").read_text(encoding="utf-8")
+    page = (built / "sites" / "Q1.html").read_text(encoding="utf-8")
+    assert f'static/app.js?v={version}"' in index
+    assert f'static/style.css?v={version}"' in index
+    assert f'../static/app.js?v={version}"' in page
+
+
+def test_asset_version_changes_with_content(tmp_path):
+    (tmp_path / "app.js").write_text("a", encoding="utf-8")
+    before = asset_version(tmp_path)
+    (tmp_path / "app.js").write_text("b", encoding="utf-8")
+    assert asset_version(tmp_path) != before
