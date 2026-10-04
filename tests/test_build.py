@@ -17,6 +17,7 @@ sites:
   - wikidata: Q2
     type: shrine
     visits:
+      - goshuin: true
       - date: "2024-01"
 """
 
@@ -30,7 +31,12 @@ CACHE = {
             "located_in": "東山区",
             "image": "A.jpg",
         },
-        "Q2": {"id": "Q2", "label": "テスト社", "instance_of": ["建造物"]},
+        "Q2": {
+            "id": "Q2",
+            "label": "Test Shrine",
+            "instance_of": ["建造物"],
+            "jawiki_title": "テスト社 (千代田区)",
+        },
     },
     "images": {
         "A.jpg": {
@@ -69,7 +75,7 @@ def _map_points(html):
 
 def test_index_is_map(built):
     html = (built / "index.html").read_text(encoding="utf-8")
-    assert "2 寺社・3 回の参拝" in html
+    assert "2 寺社・4 回の参拝" in html
     points = _map_points(html)
     # 座標のない Q2 は地図に載らない
     assert [p["id"] for p in points] == ["Q1"]
@@ -107,6 +113,8 @@ def test_excerpt(text, expected):
 
 def test_type_override_and_missing_coordinate(built):
     html = (built / "sites" / "Q2.html").read_text(encoding="utf-8")
+    # 表示名は Wikipedia の記事名から曖昧さ回避の括弧を外したもの
+    assert "<h1>テスト社</h1>" in html
     assert "神社" in html
     assert 'id="map"' not in html
 

@@ -30,7 +30,7 @@ main { max-width: 960px; margin: 0 auto; padding: 0 16px 48px; }
 .site-title { font-size: 1.4rem; font-weight: bold; text-decoration: none; color: var(--fg); }
 .site-footer { padding: 24px 16px; font-size: 0.8rem; color: var(--muted); text-align: center; }
 .summary { color: var(--muted); }
-.map { height: 360px; border-radius: 8px; border: 1px solid var(--border); margin: 16px 0; }
+.map { height: 180px; border-radius: 8px; border: 1px solid var(--border); margin: 16px 0; }
 .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
 .tag {
   display: inline-block;
@@ -104,3 +104,28 @@ figcaption { font-size: 0.8rem; color: var(--muted); }
 /* 個別ページの Wikipedia 転記部分 */
 .wikipedia { border-left: 3px solid var(--border); padding-left: 12px; }
 .attribution { font-size: 0.8rem; color: var(--muted); }
+
+/* 地図のマーカー（鳥居・三重塔） */
+.site-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fffdf8;
+  border: 2px solid currentColor;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  transition: box-shadow 0.15s;
+}
+.site-marker:hover { box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.4); }
+.site-marker svg { width: 20px; height: 20px; }
+.site-marker--shrine { color: #d23c26; } /* 朱色 */
+.site-marker--temple { color: #5b3a8e; } /* 紫（僧衣・寺院の幕の色） */
+.site-marker--other { color: #555; }
+.site-marker--other::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: currentColor; }
+
+/* 狭い画面ではタグを 1 行にして横スクロールさせ、地図を隠さない */
+@media (max-width: 640px) {
+  .map-overlay .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .map-overlay .filters::-webkit-scrollbar { display: none; }
+  .map-overlay .filters .tag { flex: none; }
+}

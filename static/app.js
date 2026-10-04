@@ -65,14 +65,38 @@
     });
   }
 
-  var colors = { temple: "#8a4b2a", shrine: "#c0392b" };
-  var markers = points.map(function (p) {
-    var marker = L.circleMarker([p.lat, p.lng], {
-      radius: 8,
-      color: colors[p.type] || "#555",
-      weight: 2,
-      fillOpacity: 0.85,
+  // 神社は鳥居、寺院は三重塔で表す（国土地理院の外国人向け地図記号にならう）
+  var ICONS = {
+    shrine:
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor">' +
+      '<path d="M2 4.2 Q12 6.6 22 4.2 L22 6.6 Q12 8.6 2 6.6 Z"/>' + // 笠木（上の反った横木）
+      '<rect x="4.5" y="10" width="15" height="1.8"/>' + // 貫（下の横木）
+      '<rect x="6.2" y="7" width="2" height="14"/><rect x="15.8" y="7" width="2" height="14"/>' + // 柱
+      '<rect x="11.1" y="7.6" width="1.8" height="2.6"/>' + // 額束
+      "</g></svg>",
+    temple:
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor">' +
+      '<rect x="11.3" y="0.8" width="1.4" height="4.6"/>' + // 相輪
+      '<path d="M5 8.2 Q9.5 7.6 12 5 Q14.5 7.6 19 8.2 L18.4 9 H5.6 Z"/><rect x="9" y="9" width="6" height="2"/>' +
+      '<path d="M3.5 13.2 Q9 12.6 12 10 Q15 12.6 20.5 13.2 L19.9 14 H4.1 Z"/><rect x="8.5" y="14" width="7" height="2"/>' +
+      '<path d="M2 18.2 Q8.5 17.6 12 15 Q15.5 17.6 22 18.2 L21.4 19 H2.6 Z"/><rect x="8" y="19" width="8" height="3"/>' +
+      '<rect x="6" y="22" width="12" height="1.4"/>' + // 基壇
+      "</g></svg>",
+  };
+
+  function markerIcon(type) {
+    var kind = ICONS[type] ? type : "other";
+    return L.divIcon({
+      className: "site-marker site-marker--" + kind,
+      html: ICONS[type] || "",
+      iconSize: [30, 30],
+      iconAnchor: [15, 15],
+      popupAnchor: [0, -15],
     });
+  }
+
+  var markers = points.map(function (p) {
+    var marker = L.marker([p.lat, p.lng], { icon: markerIcon(p.type), title: p.name, riseOnHover: true });
     marker.bindPopup(preview(p), { className: "preview-popup", closeButton: !canHover, autoPan: !canHover });
     if (canHover) hoverPopup(marker, p.url);
     marker.point = p;
