@@ -1,4 +1,4 @@
-from jisha_memo.wikidata import parse_entity, parse_imageinfo
+from jisha_memo.wikidata import clean_extract, parse_entity, parse_extracts, parse_imageinfo
 
 
 def _claim(prop_value, rank="normal"):
@@ -54,3 +54,24 @@ def test_parse_imageinfo_strips_html():
     assert image.artist == "X & Y"
     assert image.license == "CC BY-SA 4.0"
     assert parse_imageinfo("Missing.jpg", {"missing": ""}) is None
+
+
+def test_parse_extracts_follows_normalization_and_redirects():
+    query = {
+        "normalized": [{"from": "テスト_寺", "to": "テスト 寺"}],
+        "redirects": [{"from": "テスト 寺", "to": "テスト寺"}],
+        "pages": {
+            "1": {"title": "テスト寺", "lastrevid": 123, "extract": "テスト寺（てすとでら、）は寺院。\n\n境内は広い。"},
+            "-1": {"title": "存在しない", "missing": ""},
+        },
+    }
+    result = parse_extracts(query, ["テスト_寺", "存在しない"])
+    assert list(result) == ["テスト_寺"]
+    extract = result["テスト_寺"]
+    assert extract.title == "テスト寺"
+    assert extract.extract == "テスト寺（てすとでら、）は寺院。\n境内は広い。"
+    assert extract.permalink == "https://ja.wikipedia.org/w/index.php?oldid=123"
+
+
+def test_clean_extract_removes_empty_parentheses():
+    assert clean_extract("伏見稲荷大社（ 、）は神社。") == "伏見稲荷大社は神社。"

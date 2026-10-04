@@ -1,6 +1,6 @@
 // 地図の表示
-// - マウス操作: マーカーにカーソルを当てると写真付きのツールチップ、クリックで個別ページへ
-// - タッチ操作: ホバーがないので、1 回目のタップで写真付きのポップアップ、その中のリンクで個別ページへ
+// - マウス操作: マーカーにカーソルを当てると写真付きのプレビュー。マーカーかプレビューをクリックで個別ページへ
+// - タッチ操作: ホバーがないので、1 回目のタップでプレビュー、プレビューをタップで個別ページへ
 (function () {
   var mapEl = document.getElementById("map");
   var dataEl = document.getElementById("map-points");
@@ -15,10 +15,10 @@
   }).addTo(map);
 
   // 写真・名称・分類をまとめたプレビュー要素を作る（innerHTML を使わず、文字列のエスケープ漏れを防ぐ）
-  function preview(p, asLink) {
-    var root = document.createElement(asLink ? "a" : "div");
+  function preview(p) {
+    var root = document.createElement("a");
     root.className = "preview";
-    if (asLink) root.href = p.url;
+    root.href = p.url;
     if (p.image) {
       var img = document.createElement("img");
       img.src = p.image;
@@ -34,7 +34,35 @@
       span.textContent = meta;
       root.appendChild(span);
     }
+    if (p.excerpt) {
+      var text = document.createElement("p");
+      text.textContent = p.excerpt;
+      root.appendChild(text);
+    }
     return root;
+  }
+
+  // ツールチップはカーソルがマーカーから離れると消えてクリックできないので、ポップアップをホバーで開閉する。
+  // マーカーからプレビューへカーソルを移す間に閉じないよう、少し待ってから閉じる。
+  function hoverPopup(marker, url) {
+    var closeTimer = null;
+    function open() {
+      clearTimeout(closeTimer);
+      if (!marker.isPopupOpen()) marker.openPopup();
+    }
+    function closeLater() {
+      clearTimeout(closeTimer);
+      closeTimer = setTimeout(function () { marker.closePopup(); }, 250);
+    }
+    marker.off("click"); // 既定の「クリックでポップアップ開閉」をやめ、個別ページへ移動する
+    marker.on("click", function () { window.location.href = url; });
+    marker.on("mouseover", open);
+    marker.on("mouseout", closeLater);
+    marker.on("popupopen", function (e) {
+      var el = e.popup.getElement();
+      el.addEventListener("mouseenter", open);
+      el.addEventListener("mouseleave", closeLater);
+    });
   }
 
   var colors = { temple: "#8a4b2a", shrine: "#c0392b" };
@@ -45,12 +73,8 @@
       weight: 2,
       fillOpacity: 0.85,
     });
-    if (canHover) {
-      marker.bindTooltip(preview(p, false), { direction: "top", offset: [0, -8], className: "preview-tooltip" });
-      marker.on("click", function () { window.location.href = p.url; });
-    } else {
-      marker.bindPopup(preview(p, true), { className: "preview-popup" });
-    }
+    marker.bindPopup(preview(p), { className: "preview-popup", closeButton: !canHover, autoPan: !canHover });
+    if (canHover) hoverPopup(marker, p.url);
     marker.point = p;
     return marker.addTo(map);
   });

@@ -13,7 +13,7 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from .models import CommonsImage, SiteEntry, SiteType, Visit, WikidataInfo, load_sites
+from .models import CommonsImage, SiteEntry, SiteType, Visit, WikidataInfo, WikipediaExtract, load_sites
 
 ROOT = Path(__file__).resolve().parents[2]
 SITES_PATH = ROOT / "data" / "sites.yaml"
@@ -23,6 +23,18 @@ STATIC_DIR = ROOT / "static"
 OUTPUT_DIR = ROOT / "_site"
 
 TYPE_LABELS: dict[str, str] = {"temple": "寺院", "shrine": "神社"}
+EXCERPT_LENGTH = 80
+
+
+def excerpt(text: str, limit: int = EXCERPT_LENGTH) -> str:
+    """冒頭の段落から、なるべく文の切れ目（。）で区切った抜粋を作る。"""
+    first = text.split("\n", 1)[0]
+    if len(first) <= limit:
+        return first
+    cut = first.rfind("。", 0, limit)
+    if cut != -1:
+        return first[: cut + 1]
+    return first[:limit] + "…"
 
 
 @dataclass
@@ -32,6 +44,7 @@ class Site:
     entry: SiteEntry
     info: WikidataInfo
     images: list[CommonsImage]
+    wikipedia: WikipediaExtract | None = None
 
     @property
     def id(self) -> str:
@@ -58,6 +71,10 @@ class Site:
         return sorted(self.entry.visits, key=lambda v: v.date, reverse=True)
 
     @property
+    def excerpt(self) -> str:
+        return excerpt(self.wikipedia.extract) if self.wikipedia else ""
+
+    @property
     def last_visit(self) -> str:
         return self.visits[0].date if self.visits else ""
 
@@ -67,6 +84,7 @@ def load_site_models(sites_path: Path, cache_path: Path) -> list[Site]:
     cache = json.loads(cache_path.read_text(encoding="utf-8") or "{}")
     cached_sites = cache.get("sites", {})
     cached_images = cache.get("images", {})
+    cached_wikipedia = cache.get("wikipedia", {})
 
     sites: list[Site] = []
     for entry in entries:
@@ -79,7 +97,9 @@ def load_site_models(sites_path: Path, cache_path: Path) -> list[Site]:
         info = WikidataInfo.model_validate(raw)
         files = [p.removeprefix("File:").strip() for p in entry.photos] or ([info.image] if info.image else [])
         images = [CommonsImage.model_validate(cached_images[f]) for f in files if f in cached_images]
-        sites.append(Site(entry=entry, info=info, images=images))
+        wiki = cached_wikipedia.get(entry.wikidata)
+        wikipedia = WikipediaExtract.model_validate(wiki) if wiki else None
+        sites.append(Site(entry=entry, info=info, images=images, wikipedia=wikipedia))
 
     sites.sort(key=lambda s: s.last_visit, reverse=True)
     return sites
@@ -94,6 +114,7 @@ def map_points(sites: list[Site], prefix: str = "") -> list[dict[str, object]]:
             "type_label": s.type_label,
             "tags": s.entry.tags,
             "last_visit": s.last_visit,
+            "excerpt": s.excerpt,
             "image": s.images[0].thumb_url if s.images else None,
             "lat": s.info.coordinate.lat,
             "lng": s.info.coordinate.lng,

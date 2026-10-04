@@ -19,13 +19,15 @@ from typing import Any, Iterable
 
 import requests
 
-from .models import CommonsImage, Coordinate, WikidataInfo, load_sites
+from .models import CommonsImage, Coordinate, WikidataInfo, WikipediaExtract, load_sites
 
 WIKIDATA_API = "https://www.wikidata.org/w/api.php"
 COMMONS_API = "https://commons.wikimedia.org/w/api.php"
+JAWIKI_API = "https://ja.wikipedia.org/w/api.php"
 # Wikimedia の利用規約で、連絡先のわかる User-Agent が求められている
 USER_AGENT = "jisha-memo/0.1 (https://github.com/Karintou83/jisha-memo)"
 BATCH_SIZE = 50  # wbgetentities が一度に受け付ける上限
+EXTRACT_BATCH_SIZE = 20  # prop=extracts（exintro）が一度に返せる上限
 THUMB_WIDTH = 640
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -88,6 +90,7 @@ def parse_entity(entity: dict[str, Any], labels: dict[str, str]) -> WikidataInfo
         image=images[0] if images else None,
         official_website=websites[0] if websites else None,
         jawiki_url=jawiki.get("url") if jawiki else None,
+        jawiki_title=jawiki.get("title") if jawiki else None,
     )
 
 
@@ -168,6 +171,54 @@ def fetch_commons(session: requests.Session, files: list[str]) -> dict[str, Comm
     return result
 
 
+def clean_extract(text: str) -> str:
+    """プレーンテキスト化で生じた空の括弧や余分な空白を取り除く。"""
+    text = re.sub(r"[（(][\s、,]*[）)]", "", text)
+    paragraphs = [re.sub(r"[ \t]+", " ", p).strip() for p in text.split("\n")]
+    return "\n".join(p for p in paragraphs if p)
+
+
+def parse_extracts(query: dict[str, Any], titles: list[str]) -> dict[str, WikipediaExtract]:
+    """prop=extracts|info の結果を、要求した記事名 → 冒頭部分 の対応にする。
+
+    記事名の正規化やリダイレクトで返ってくる名前が変わるので、要求した名前までたどり直す。
+    """
+    renamed = {n["from"]: n["to"] for n in query.get("normalized", [])}
+    redirects = {r["from"]: r["to"] for r in query.get("redirects", [])}
+    pages = {p["title"]: p for p in query.get("pages", {}).values() if "missing" not in p}
+
+    result: dict[str, WikipediaExtract] = {}
+    for title in titles:
+        final = renamed.get(title, title)
+        final = redirects.get(final, final)
+        page = pages.get(final)
+        if page and page.get("extract"):
+            result[title] = WikipediaExtract(
+                title=page["title"], extract=clean_extract(page["extract"]), revid=page["lastrevid"]
+            )
+    return result
+
+
+def fetch_extracts(session: requests.Session, titles: list[str]) -> dict[str, WikipediaExtract]:
+    result: dict[str, WikipediaExtract] = {}
+    for chunk in _chunks(titles, EXTRACT_BATCH_SIZE):
+        data = _get(
+            session,
+            JAWIKI_API,
+            {
+                "action": "query",
+                "titles": "|".join(chunk),
+                "prop": "extracts|info",
+                "exintro": "1",
+                "explaintext": "1",
+                "exlimit": "max",
+                "redirects": "1",
+            },
+        )
+        result.update(parse_extracts(data.get("query", {}), chunk))
+    return result
+
+
 def _normalize_file(name: str) -> str:
     return name.removeprefix("File:").strip()
 
@@ -177,6 +228,7 @@ def update_cache(refresh: bool = False) -> dict[str, Any]:
     cache: dict[str, Any] = {} if refresh else json.loads(CACHE_PATH.read_text(encoding="utf-8") or "{}")
     cached_sites: dict[str, Any] = cache.get("sites", {})
     cached_images: dict[str, Any] = cache.get("images", {})
+    cached_wikipedia: dict[str, Any] = cache.get("wikipedia", {})
 
     session = requests.Session()
     session.headers["User-Agent"] = USER_AGENT
@@ -205,9 +257,28 @@ def update_cache(refresh: bool = False) -> dict[str, Any]:
         for file, image in fetch_commons(session, missing_files).items():
             cached_images[file] = image.model_dump()
 
-    cache = {"sites": dict(sorted(cached_sites.items())), "images": dict(sorted(cached_images.items()))}
+    # 日本語版 Wikipedia の冒頭部分（寺社の Wikidata ID ごとに保存）
+    wanted_titles = {
+        info["jawiki_title"]: s.wikidata
+        for s in sites
+        if s.wikidata not in cached_wikipedia
+        and (info := cached_sites.get(s.wikidata))
+        and info.get("jawiki_title")
+    }
+    if wanted_titles:
+        for title, extract in fetch_extracts(session, sorted(wanted_titles)).items():
+            cached_wikipedia[wanted_titles[title]] = extract.model_dump()
+
+    cache = {
+        "sites": dict(sorted(cached_sites.items())),
+        "images": dict(sorted(cached_images.items())),
+        "wikipedia": dict(sorted(cached_wikipedia.items())),
+    }
     CACHE_PATH.write_text(json.dumps(cache, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"寺社 {len(cached_sites)} 件・画像 {len(cached_images)} 件をキャッシュしました")
+    print(
+        f"寺社 {len(cached_sites)} 件・画像 {len(cached_images)} 件・"
+        f"Wikipedia {len(cached_wikipedia)} 件をキャッシュしました"
+    )
     return cache
 
 

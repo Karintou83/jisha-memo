@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from jisha_memo.build import build
+from jisha_memo.build import build, excerpt
 
 SITES_YAML = """
 sites:
@@ -41,6 +41,13 @@ CACHE = {
             "license": "CC BY-SA 4.0",
         }
     },
+    "wikipedia": {
+        "Q1": {
+            "title": "テスト寺",
+            "extract": "テスト寺は京都にある寺院。" + "あ" * 100 + "\n二段落目。",
+            "revid": 42,
+        }
+    },
 }
 
 
@@ -69,6 +76,8 @@ def test_index_is_map(built):
     assert points[0]["url"] == "sites/Q1.html"
     assert points[0]["image"] == "https://upload.wikimedia.org/thumb/a.jpg"  # ホバー時の写真
     assert points[0]["last_visit"] == "2026-09"
+    assert points[0]["excerpt"] == "テスト寺は京都にある寺院。"  # Wikipedia 冒頭の抜粋
+    assert "二回目" not in html  # 一言メモはトップページに出さない
 
 
 def test_site_page(built):
@@ -77,6 +86,23 @@ def test_site_page(built):
     assert "御朱印" in html
     assert "CC BY-SA 4.0" in html  # Commons 画像のクレジット
     assert "https://www.wikidata.org/wiki/Q1" in html
+    # Wikipedia の冒頭部分を段落ごとに転記し、版を指定して出典を示す
+    assert "<p>二段落目。</p>" in html
+    assert "https://ja.wikipedia.org/w/index.php?oldid=42" in html
+    assert "CC BY-SA 4.0" in html
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        ("短い説明。", "短い説明。"),
+        ("一文目。" + "い" * 100, "一文目。"),
+        ("あ" * 100, "あ" * 80 + "…"),  # 句点がなければ文字数で切る
+        ("一段落目。\n二段落目。", "一段落目。"),
+    ],
+)
+def test_excerpt(text, expected):
+    assert excerpt(text) == expected
 
 
 def test_type_override_and_missing_coordinate(built):
