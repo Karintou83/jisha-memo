@@ -129,6 +129,8 @@ sites:
     visits:
       - date: "2025-05"
         goshuin: true
+      - date: "2026-02"
+        goshuin: true
   - wikidata: Q1157585  # 大覚寺
     tags: [百人一首]
     visits:
@@ -167,6 +169,8 @@ sites:
     visits:
       - date: "2025-08"
         goshuin: true
+      - date: "2026-01"
+        goshuin: true
   - wikidata: Q672056  # 高徳院
     visits:
       - date: "2025-09"
@@ -186,4 +190,71 @@ sites:
   - wikidata: Q11259219  # 江島神社
     visits:
       - date: "2025-09"
+        goshuin: true
+  - wikidata: Q11378990  # 伊勢山皇大神宮
+    visits:
+      - date: "2025-10"
+        goshuin: true
+  - wikidata: Q653319  # 三十三間堂
+    visits:
+      - date: "2025-10"
+        goshuin: true
+  - wikidata: Q385793  # 大阪天満宮
+    tags: [百人一首]
+    visits:
+      - date: "2025-11"
+        goshuin: true
+  - wikidata: Q251682  # 祐徳稲荷神社
+    visits:
+      - date: "2026-01"
+        goshuin: true
+  - wikidata: Q714742  # 筥崎宮
+    visits:
+      - date: "2026-01"
+        goshuin: true
+  - wikidata: Q61094  # 平等院
+    visits:
+      - date: "2026-02"
+        goshuin: true
+  - wikidata: Q710302  # 松尾大社
+    visits:
+      - date: "2026-02"
+        goshuin: true
+  - wikidata: Q705635  # 白峯神宮
+    tags: [神宮, 百人一首]
+    visits:
+      - date: "2026-03"
+        goshuin: true
+  - wikidata: Q11573988  # 瑠璃光寺
+    visits:
+      - date: "2026-03"
+        goshuin: true
+  - wikidata: Q11653315  # 長浜神社（出雲市）
+    visits:
+      - date: "2026-03"
+        goshuin: true
+  - wikidata: Q1619446  # 日御碕神社
+    visits:
+      - date: "2026-03"
+        goshuin: true
+  - wikidata: Q3313076  # 美保神社
+    visits:
+      - date: "2026-03"
+        goshuin: true
+  - wikidata: Q22120369  # 松江神社
+    visits:
+      - date: "2026-03"
+        goshuin: true
+  - wikidata: Q3571285  # 八重垣神社
+    visits:
+      - date: "2026-03"
+        goshuin: true
+  - wikidata: Q11568887  # 熊野大社（松江市）
+    visits:
+      - date: "2026-03"
+        goshuin: true
+  - wikidata: Q705121  # 水無瀬神宮
+    tags: [神宮, 百人一首]
+    visits:
+      - date: "2026-09"
         goshuin: true
