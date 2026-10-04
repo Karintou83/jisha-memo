@@ -5,8 +5,185 @@
 sites:
   - wikidata: Q714828  # 伏見稲荷大社
     visits:
+      - date: "2023-11"
+        memo: 修学旅行で行った。
+        goshuin: true
       - date: "2026-03"
         memo: |-
           朱塗りの「千本鳥居」で有名な神社。「千本」といいつつも、実際は約1万本らしい。
           奥の山にも道は続くが、まだ行ったことはない。いつか行ってみたいと思うのだが。
+        goshuin: true
+  - wikidata: Q270983  # 鹿苑寺（金閣寺）
+    visits:
+      - date: "2023-11"
+        memo: 修学旅行で行った。
+        goshuin: true
+  - wikidata: Q587371  # 龍安寺
+    visits:
+      - date: "2023-11"
+        memo: 修学旅行で行った。
+        goshuin: true
+  - wikidata: Q221716  # 清水寺
+    visits:
+      - date: "2023-11"
+        memo: 修学旅行で行った。
+        goshuin: true
+      - date: "2025-04"
+        memo: 夜間拝観
+        goshuin: true
+  - wikidata: Q714559  # 春日大社
+    tags: [百人一首]
+    visits:
+      - date: "2023-11"
+        memo: 修学旅行で行った。
+        goshuin: true
+  - wikidata: Q704898  # 防府天満宮
+    tags: [百人一首]
+    visits:
+      - date: "2024-04"
+        goshuin: true
+  - wikidata: Q11466743  # 山口大神宮
+    visits:
+      - date: "2024-04"
+        goshuin: true
+  - wikidata: Q11370831  # 亀山八幡宮
+    visits:
+      - date: "2024-04"
+        goshuin: true
+  - wikidata: Q704962  # 宗像大社
+    visits:
+      - date: "2024-04"
+        goshuin: true
+  - wikidata: Q22120637  # 元乃隅神社
+    visits:
+      - date: "2024-04"
+        goshuin: true
+  - wikidata: Q11532416  # 松陰神社（萩市）
+    visits:
+      - date: "2024-04"
+        goshuin: true
+  - wikidata: Q712617  # 赤間神宮
+    tags: [神宮]
+    visits:
+      - date: "2024-04"
+        goshuin: true
+  - wikidata: Q1202871  # 仁和寺
+    visits:
+      - date: "2024-08"
+        memo: 京大のオープンキャンパスのついでに行った。
+        goshuin: true
+  - wikidata: Q257473  # 慈照寺（銀閣寺）
+    visits:
+      - date: "2024-08"
+        memo: 京大のオープンキャンパスのついでに行った。
+        goshuin: true
+  - wikidata: Q385141  # 平安神宮
+    tags: [神宮]
+    visits:
+      - date: "2024-08"
+        memo: 京大のオープンキャンパスのついでに行った。
+        goshuin: true
+  - wikidata: Q662176  # 北野天満宮
+    tags: [百人一首]
+    visits:
+      - date: "2024-08"
+        memo: 京大のオープンキャンパスのついでに行った。
+        goshuin: true
+  - wikidata: Q710786  # 太宰府天満宮
+    tags: [百人一首]
+    visits:
+      - date: "2024-10"
+        goshuin: true
+  - wikidata: Q1060966  # 泉涌寺
+    visits:
+      - date: "2025-04"
+        goshuin: true
+  - wikidata: Q701620  # 賀茂御祖神社（下鴨神社）
+    visits:
+      - date: "2025-04"
+        goshuin: true
+  - wikidata: Q700448  # 賀茂別雷神社（上賀茂神社）
+    tags: [百人一首]
+    visits:
+      - date: "2025-04"
+        goshuin: true
+  - wikidata: Q55537320  # 新善光寺（泉涌寺塔頭）
+    visits:
+      - date: "2025-04"
+        goshuin: true
+  - wikidata: Q20043593  # 戒光寺
+    visits:
+      - date: "2025-04"
+        goshuin: true
+  - wikidata: Q385407  # 近江神宮
+    tags: [神宮, 百人一首]
+    visits:
+      - date: "2025-04"
+        goshuin: true
+  - wikidata: Q710333  # 橿原神宮
+    tags: [神宮]
+    visits:
+      - date: "2025-05"
+        goshuin: true
+  - wikidata: Q710086  # 生田神社
+    visits:
+      - date: "2025-05"
+        goshuin: true
+  - wikidata: Q1157585  # 大覚寺
+    tags: [百人一首]
+    visits:
+      - date: "2025-06"
+        goshuin: true
+  - wikidata: Q1759226  # 天龍寺
+    visits:
+      - date: "2025-08"
+        goshuin: true
+  - wikidata: Q339859  # 四天王寺
+    visits:
+      - date: "2025-08"
+        goshuin: true
+  - wikidata: Q615183  # 浅草寺
+    visits:
+      - date: "2025-08"
+        goshuin: true
+  - wikidata: Q702042  # 日枝神社（千代田区）
+    visits:
+      - date: "2025-08"
+        goshuin: true
+  - wikidata: Q242803  # 靖国神社
+    visits:
+      - date: "2025-08"
+        goshuin: true
+  - wikidata: Q11524717  # 東京大神宮
+    visits:
+      - date: "2025-08"
+        goshuin: true
+  - wikidata: Q249139  # 増上寺
+    visits:
+      - date: "2025-08"
+        goshuin: true
+  - wikidata: Q287165  # 明治神宮
+    tags: [神宮]
+    visits:
+      - date: "2025-08"
+        goshuin: true
+  - wikidata: Q672056  # 高徳院
+    visits:
+      - date: "2025-09"
+        goshuin: true
+  - wikidata: Q701403  # 鶴岡八幡宮
+    visits:
+      - date: "2025-09"
+        goshuin: true
+  - wikidata: Q3146363  # 報国寺
+    visits:
+      - date: "2025-09"
+        goshuin: true
+  - wikidata: Q954860  # 円覚寺
+    visits:
+      - date: "2025-09"
+        goshuin: true
+  - wikidata: Q11259219  # 江島神社
+    visits:
+      - date: "2025-09"
         goshuin: true

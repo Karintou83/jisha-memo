@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% block title %}{{ site.info.label }} - 寺社メモ{% endblock %}
+{% block title %}{{ site.name }} - 寺社メモ{% endblock %}
 {% block content %}
 <article>
-  <h1>{{ site.info.label }}</h1>
+  <h1>{{ site.name }}</h1>
   <p class="site-meta">
     {% if site.type_label %}{{ site.type_label }} · {% endif %}{{ site.info.located_in }}
     {% for tag in site.entry.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
@@ -19,7 +19,7 @@
 
   {% for image in site.images %}
   <figure>
-    <img src="{{ image.thumb_url }}" alt="{{ site.info.label }}">
+    <img src="{{ image.thumb_url }}" alt="{{ site.name }}">
     <figcaption>
       <a href="{{ image.page_url }}">{{ image.file }}</a>
       {% if image.artist %} / {{ image.artist }}{% endif %}

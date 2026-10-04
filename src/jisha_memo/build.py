@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import json
+import re
 import shutil
 from dataclasses import dataclass
 from pathlib import Path
@@ -49,6 +50,13 @@ class Site:
     @property
     def id(self) -> str:
         return self.entry.wikidata
+
+    @property
+    def name(self) -> str:
+        """表示名。日本語版 Wikipedia の記事名に揃え、末尾の曖昧さ回避の括弧は外す。"""
+        if self.info.jawiki_title:
+            return re.sub(r"\s*[(（][^()（）]*[)）]$", "", self.info.jawiki_title)
+        return self.info.label
 
     @property
     def type(self) -> SiteType | None:
@@ -109,7 +117,7 @@ def map_points(sites: list[Site], prefix: str = "") -> list[dict[str, object]]:
     return [
         {
             "id": s.id,
-            "name": s.info.label,
+            "name": s.name,
             "type": s.type,
             "type_label": s.type_label,
             "tags": s.entry.tags,
