@@ -61,6 +61,20 @@ class WikidataInfo(BaseModel):
     image: str | None = None
     official_website: str | None = None
     jawiki_url: str | None = None
+    jawiki_title: str | None = None
+
+
+class WikipediaExtract(BaseModel):
+    """日本語版 Wikipedia 記事の冒頭部分。"""
+
+    title: str
+    extract: str
+    revid: int
+
+    @property
+    def permalink(self) -> str:
+        # 取得した時点の版へのリンク（記事が更新されても、転記元を正確に示せる）
+        return f"https://ja.wikipedia.org/w/index.php?oldid={self.revid}"
 
 
 def load_sites(path: Path) -> list[SiteEntry]:

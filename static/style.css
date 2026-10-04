@@ -94,8 +94,13 @@ figcaption { font-size: 0.8rem; color: var(--muted); }
 }
 
 /* マーカーのプレビュー（ツールチップ／ポップアップ） */
-.preview { display: flex; flex-direction: column; gap: 2px; width: 200px; color: #2b2b2b; text-decoration: none; white-space: normal; }
+.leaflet-container a.preview, .preview { display: flex; flex-direction: column; gap: 2px; width: 200px; color: #2b2b2b; text-decoration: none; white-space: normal; }
 .preview img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; margin-bottom: 4px; }
 .preview strong { font-size: 1rem; }
 .preview span { font-size: 0.8rem; color: #6b6560; }
-.leaflet-tooltip.preview-tooltip { padding: 6px; }
+.preview p { margin: 4px 0 0 !important; font-size: 0.8rem; line-height: 1.5; }
+.preview-popup .leaflet-popup-content { margin: 8px; }
+
+/* 個別ページの Wikipedia 転記部分 */
+.wikipedia { border-left: 3px solid var(--border); padding-left: 12px; }
+.attribution { font-size: 0.8rem; color: var(--muted); }

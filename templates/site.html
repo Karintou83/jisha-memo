@@ -7,7 +7,15 @@
     {% if site.type_label %}{{ site.type_label }} · {% endif %}{{ site.info.located_in }}
     {% for tag in site.entry.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
   </p>
-  {% if site.info.description %}<p>{{ site.info.description }}</p>{% endif %}
+  {% if site.wikipedia %}
+  <section class="wikipedia">
+    {% for paragraph in site.wikipedia.extract.split("\n") %}<p>{{ paragraph }}</p>{% endfor %}
+    <p class="attribution">
+      出典: <a href="{{ site.wikipedia.permalink }}">Wikipedia日本語版「{{ site.wikipedia.title }}」</a>の冒頭部分
+      （<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.ja">CC BY-SA 4.0</a>）
+    </p>
+  </section>
+  {% elif site.info.description %}<p>{{ site.info.description }}</p>{% endif %}
 
   {% for image in site.images %}
   <figure>
