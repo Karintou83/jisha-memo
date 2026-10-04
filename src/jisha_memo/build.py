@@ -68,7 +68,7 @@ class Site:
 
     @property
     def visits(self) -> list[Visit]:
-        return sorted(self.entry.visits, key=lambda v: v.date, reverse=True)
+        return sorted(self.entry.visits, key=lambda v: v.date or "", reverse=True)
 
     @property
     def excerpt(self) -> str:
@@ -76,7 +76,7 @@ class Site:
 
     @property
     def last_visit(self) -> str:
-        return self.visits[0].date if self.visits else ""
+        return (self.visits[0].date or "") if self.visits else ""
 
 
 def load_site_models(sites_path: Path, cache_path: Path) -> list[Site]:

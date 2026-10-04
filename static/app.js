@@ -65,7 +65,7 @@
     });
   }
 
-  // 国土地理院の地図記号にならい、神社は鳥居、寺院は卍で表す
+  // 神社は鳥居、寺院は三重塔で表す（国土地理院の外国人向け地図記号にならう）
   var ICONS = {
     shrine:
       '<svg viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor">' +
@@ -75,8 +75,13 @@
       '<rect x="11.1" y="7.6" width="1.8" height="2.6"/>' + // 額束
       "</g></svg>",
     temple:
-      '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" ' +
-      'stroke-linecap="square" d="M12 5V19M5 12H19M12 5H5M19 12V5M12 19H19M5 12V19"/></svg>',
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor">' +
+      '<rect x="11.3" y="0.8" width="1.4" height="4.6"/>' + // 相輪
+      '<path d="M5 8.2 Q9.5 7.6 12 5 Q14.5 7.6 19 8.2 L18.4 9 H5.6 Z"/><rect x="9" y="9" width="6" height="2"/>' +
+      '<path d="M3.5 13.2 Q9 12.6 12 10 Q15 12.6 20.5 13.2 L19.9 14 H4.1 Z"/><rect x="8.5" y="14" width="7" height="2"/>' +
+      '<path d="M2 18.2 Q8.5 17.6 12 15 Q15.5 17.6 22 18.2 L21.4 19 H2.6 Z"/><rect x="8" y="19" width="8" height="3"/>' +
+      '<rect x="6" y="22" width="12" height="1.4"/>' + // 基壇
+      "</g></svg>",
   };
 
   function markerIcon(type) {

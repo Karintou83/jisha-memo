@@ -24,3 +24,10 @@ def test_rejects_other_date_formats(date):
 def test_rejects_invalid_qid():
     with pytest.raises(ValidationError):
         _load("sites: [{wikidata: 清水寺}]")
+
+
+def test_date_is_optional():
+    # 年月が分からなくても、御朱印の記録だけ先に登録できる
+    sites = _load("sites: [{wikidata: Q1, visits: [{goshuin: true}]}]")
+    assert sites[0].visits[0].date is None
+    assert sites[0].visits[0].goshuin

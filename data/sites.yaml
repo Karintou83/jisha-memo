@@ -1,5 +1,5 @@
 # wikidata: Wikidata の項目 ID
-# visits:   date（YYYY-MM）・memo・goshuin
+# visits:   date（YYYY-MM、省略可）・memo・goshuin
 # tags / type（temple, shrine）/ photos（Commons のファイル名）は任意
 
 sites:

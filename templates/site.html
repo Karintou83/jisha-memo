@@ -32,7 +32,7 @@
   <ul class="visits">
     {% for visit in site.visits %}
     <li>
-      <span class="site-date">{{ visit.date }}</span>
+      {% if visit.date %}<span class="site-date">{{ visit.date }}</span>{% endif %}
       {% if visit.goshuin %}<span class="badge">御朱印</span>{% endif %}
       {% if visit.memo %}<p>{{ visit.memo }}</p>{% endif %}
     </li>

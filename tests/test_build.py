@@ -17,6 +17,7 @@ sites:
   - wikidata: Q2
     type: shrine
     visits:
+      - goshuin: true
       - date: "2024-01"
 """
 
@@ -69,7 +70,7 @@ def _map_points(html):
 
 def test_index_is_map(built):
     html = (built / "index.html").read_text(encoding="utf-8")
-    assert "2 寺社・3 回の参拝" in html
+    assert "2 寺社・4 回の参拝" in html
     points = _map_points(html)
     # 座標のない Q2 は地図に載らない
     assert [p["id"] for p in points] == ["Q1"]

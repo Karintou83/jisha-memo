@@ -9,6 +9,7 @@
 
 ```sh
 pip install -e ".[dev]"
+python -m jisha_memo.search 寺社名   # Wikidata の項目 ID を探す
 python -m jisha_memo.wikidata
 python -m jisha_memo.build
 ```
