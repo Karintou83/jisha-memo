@@ -4,6 +4,7 @@
 
 sites:
   - wikidata: Q714828  # 伏見稲荷大社
+    tags: [総本宮]
     visits:
       - date: "2023-11"
         memo: 修学旅行で行った。
@@ -32,7 +33,7 @@ sites:
         memo: 夜間拝観
         goshuin: true
   - wikidata: Q714559  # 春日大社
-    tags: [百人一首]
+    tags: [百人一首, 総本宮]
     visits:
       - date: "2023-11"
         memo: 修学旅行で行った。
@@ -45,12 +46,14 @@ sites:
   - wikidata: Q11466743  # 山口大神宮
     visits:
       - date: "2024-04"
+        memo: 境内の多賀神社にも参拝した。
         goshuin: true
   - wikidata: Q11370831  # 亀山八幡宮
     visits:
       - date: "2024-04"
         goshuin: true
   - wikidata: Q704962  # 宗像大社
+    tags: [総本宮]
     visits:
       - date: "2024-04"
         goshuin: true
@@ -84,26 +87,29 @@ sites:
         memo: 京大のオープンキャンパスのついでに行った。
         goshuin: true
   - wikidata: Q662176  # 北野天満宮
-    tags: [百人一首]
+    tags: [百人一首, 総本宮]
     visits:
       - date: "2024-08"
         memo: 京大のオープンキャンパスのついでに行った。
         goshuin: true
   - wikidata: Q710786  # 太宰府天満宮
-    tags: [百人一首]
+    tags: [百人一首, 総本宮]
     visits:
       - date: "2024-10"
+        goshuin: true
+      - date: "2026-05"
         goshuin: true
   - wikidata: Q1060966  # 泉涌寺
     visits:
       - date: "2025-04"
         goshuin: true
   - wikidata: Q701620  # 賀茂御祖神社（下鴨神社）
+    tags: [一宮]
     visits:
       - date: "2025-04"
         goshuin: true
   - wikidata: Q700448  # 賀茂別雷神社（上賀茂神社）
-    tags: [百人一首]
+    tags: [百人一首, 一宮]
     visits:
       - date: "2025-04"
         goshuin: true
@@ -176,6 +182,7 @@ sites:
       - date: "2025-09"
         goshuin: true
   - wikidata: Q701403  # 鶴岡八幡宮
+    tags: [三大八幡宮]
     visits:
       - date: "2025-09"
         goshuin: true
@@ -209,6 +216,7 @@ sites:
       - date: "2026-01"
         goshuin: true
   - wikidata: Q714742  # 筥崎宮
+    tags: [一宮, 三大八幡宮]
     visits:
       - date: "2026-01"
         goshuin: true
@@ -217,6 +225,7 @@ sites:
       - date: "2026-02"
         goshuin: true
   - wikidata: Q710302  # 松尾大社
+    tags: [総本宮]
     visits:
       - date: "2026-02"
         goshuin: true
@@ -250,6 +259,7 @@ sites:
       - date: "2026-03"
         goshuin: true
   - wikidata: Q11568887  # 熊野大社（松江市）
+    tags: [一宮]
     visits:
       - date: "2026-03"
         goshuin: true
@@ -257,4 +267,123 @@ sites:
     tags: [神宮, 百人一首]
     visits:
       - date: "2026-09"
+        goshuin: true
+  - wikidata: Q3192477  # 神魂神社
+    visits:
+      - date: "2026-03"
+        goshuin: true
+  - wikidata: Q11664579  # 須賀神社（雲南市）
+    visits:
+      - date: "2026-03"
+        goshuin: true
+  - wikidata: Q696362  # 出雲大社
+    tags: [一宮]
+    visits:
+      - date: "2026-03"
+        goshuin: true
+  - wikidata: Q191763  # 厳島神社
+    tags: [一宮, 総本宮]
+    visits:
+      - date: "2026-03"
+        goshuin: true
+  - wikidata: Q11441893  # 大願寺（廿日市市）
+    visits:
+      - date: "2026-03"
+        goshuin: true
+  - wikidata: Q3012169  # 大聖院（廿日市市）
+    visits:
+      - date: "2026-03"
+        goshuin: true
+  - wikidata: Q11639721  # 速谷神社
+    visits:
+      - date: "2026-03"
+        goshuin: true
+  - wikidata: Q11648178  # 針綱神社
+    visits:
+      - date: "2026-05"
+        goshuin: true
+  - wikidata: Q11354441  # 三光稲荷神社（犬山市）
+    visits:
+      - date: "2026-05"
+        memo: 境内の猿田彦神社にも参拝した。
+        goshuin: true
+  - wikidata: Q11495646  # 成田山名古屋別院大聖寺（犬山成田山）
+    visits:
+      - date: "2026-05"
+        goshuin: true
+  - wikidata: Q11465296  # 尾張大国霊神社（国府宮）
+    visits:
+      - date: "2026-05"
+        goshuin: true
+  - wikidata: Q705916  # 真清田神社
+    tags: [一宮]
+    visits:
+      - date: "2026-05"
+        goshuin: true
+  - wikidata: Q482065  # 熱田神宮
+    tags: [神宮]
+    visits:
+      - date: "2026-05"
+        goshuin: true
+  - wikidata: Q704855  # 豊国神社（大阪市）
+    visits:
+      - date: "2026-05"
+        goshuin: true
+  - wikidata: Q11633343  # 豊受大神宮（伊勢神宮外宮）
+    tags: [神宮, 伊勢]
+    visits:
+      - date: "2026-05"
+        goshuin: true
+  - wikidata: Q11581011  # 皇大神宮（伊勢神宮内宮）
+    tags: [神宮, 伊勢]
+    visits:
+      - date: "2026-05"
+        goshuin: true
+  - wikidata: Q11516023  # 月夜見宮
+    tags: [伊勢]
+    visits:
+      - date: "2026-05"
+        goshuin: true
+  - wikidata: Q11516220  # 月読宮
+    tags: [伊勢]
+    visits:
+      - date: "2026-05"
+        goshuin: true
+  - wikidata: Q11387081  # 倭姫宮
+    tags: [伊勢]
+    visits:
+      - date: "2026-05"
+        goshuin: true
+  - wikidata: Q3176144  # 泉岳寺
+    visits:
+      - date: "2026-06"
+        goshuin: true
+  - wikidata: Q56523409  # 金刀比羅神社（京丹後市）
+    visits:
+      - date: "2026-07"
+        goshuin: true
+  - wikidata: Q3120766  # 寛永寺
+    visits:
+      - date: "2026-08"
+        memo: 不忍池弁天堂に参拝した。
+        goshuin: true
+  - wikidata: Q3083875  # 成田山新勝寺
+    visits:
+      - date: "2026-08"
+        goshuin: true
+  - wikidata: Q11677653  # 麻賀多神社（佐倉市鏑木町）
+    visits:
+      - date: "2026-08"
+        goshuin: true
+  - wikidata: Q626535  # 本能寺
+    visits:
+      - date: "2026-10"
+        goshuin: true
+  - wikidata: Q1046403  # 東寺
+    visits:
+      - date: "2026-10"
+        goshuin: true
+  - wikidata: Q460367  # 東大寺
+    visits:
+      - date: "2026-10"
         goshuin: true
