@@ -13,3 +13,8 @@ python -m jisha_memo.search 寺社名   # Wikidata の項目 ID を探す
 python -m jisha_memo.wikidata
 python -m jisha_memo.build
 ```
+
+## 一言メモの追加
+
+寺社の個別ページの「一言メモを追加」から Issue フォームを開いて送信すると、
+GitHub Actions がメモを `data/sites.yaml` に追記してサイトを更新します（リポジトリの持ち主の Issue のみ）。

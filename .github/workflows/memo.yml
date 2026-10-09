@@ -1,0 +1,70 @@
+name: Add memo from issue
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+# 続けて送信しても push がぶつからないよう、1 件ずつ処理する
+concurrency:
+  group: memo
+  cancel-in-progress: false
+
+jobs:
+  add-memo:
+    # リポジトリの持ち主が「一言メモを追加」フォームから作った Issue だけを処理する
+    if: github.event.issue.user.login == github.repository_owner && startsWith(github.event.issue.title, '一言メモ')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      # Issue の本文は外部からの入力なので、シェルに直接埋め込まず環境変数経由でファイルに書く
+      - name: Save issue body
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: printf '%s' "$ISSUE_BODY" > "$RUNNER_TEMP/issue_body.md"
+      - id: add
+        run: python -m jisha_memo.add_memo "$RUNNER_TEMP/issue_body.md" 2> "$RUNNER_TEMP/error.txt"
+      - name: Commit
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/sites.yaml
+          git commit -m "一言メモを追加 (#$ISSUE_NUMBER)"
+          git pull --rebase origin main
+          git push origin HEAD:main
+      # GITHUB_TOKEN による push では Deploy ワークフローが起動しないため、明示的に起動する
+      - name: Deploy
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref main
+      - name: Close issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: gh issue close "$ISSUE_NUMBER" --comment "一言メモを追加しました。1〜2 分ほどでサイトに反映されます。"
+      - name: Report error
+        if: failure() && steps.add.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          {
+            echo "一言メモを追加できませんでした。内容を確認して、新しく送り直してください。"
+            echo
+            echo '```'
+            tail -n 5 "$RUNNER_TEMP/error.txt"
+            echo '```'
+          } > "$RUNNER_TEMP/comment.md"
+          gh issue comment "$ISSUE_NUMBER" --body-file "$RUNNER_TEMP/comment.md"
