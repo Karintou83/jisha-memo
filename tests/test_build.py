@@ -143,3 +143,18 @@ def test_asset_version_changes_with_content(tmp_path):
     before = asset_version(tmp_path)
     (tmp_path / "app.js").write_text("b", encoding="utf-8")
     assert asset_version(tmp_path) != before
+
+
+def test_memo_button(built):
+    from urllib.parse import parse_qs, urlparse
+    import html as html_lib
+
+    page = (built / "sites" / "Q1.html").read_text(encoding="utf-8")
+    href = html_lib.unescape(page.split('class="memo-button" href="', 1)[1].split('"', 1)[0])
+    url = urlparse(href)
+    assert url.path == "/Karintou83/jisha-memo/issues/new"
+    query = parse_qs(url.query)
+    assert query["template"] == ["memo.yml"]
+    assert query["wikidata"] == ["Q1"]
+    assert query["date"] == ["2026-09"]  # 最新の参拝年月を入れておく
+    assert query["title"][0].startswith("一言メモ")  # Actions はこの題名で処理対象を判定する

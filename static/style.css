@@ -129,3 +129,14 @@ figcaption { font-size: 0.8rem; color: var(--muted); }
   .map-overlay .filters::-webkit-scrollbar { display: none; }
   .map-overlay .filters .tag { flex: none; }
 }
+
+/* 「一言メモを追加」ボタン */
+.memo-button {
+  display: inline-block;
+  padding: 4px 14px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+.memo-button:hover { background: var(--accent); color: var(--bg); }

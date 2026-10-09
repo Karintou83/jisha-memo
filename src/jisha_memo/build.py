@@ -9,6 +9,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+from urllib.parse import quote, urlencode
 import shutil
 from dataclasses import dataclass
 from pathlib import Path
@@ -24,6 +25,7 @@ TEMPLATES_DIR = ROOT / "templates"
 STATIC_DIR = ROOT / "static"
 OUTPUT_DIR = ROOT / "_site"
 
+REPO_URL = "https://github.com/Karintou83/jisha-memo"
 TYPE_LABELS: dict[str, str] = {"temple": "寺院", "shrine": "神社"}
 EXCERPT_LENGTH = 80
 
@@ -58,6 +60,14 @@ class Site:
         if self.info.jawiki_title:
             return re.sub(r"\s*[(（][^()（）]*[)）]$", "", self.info.jawiki_title)
         return self.info.label
+
+    @property
+    def memo_url(self) -> str:
+        """「一言メモを追加」の Issue フォームを、寺社と最新の参拝年月を入れた状態で開く URL。"""
+        params = {"template": "memo.yml", "title": f"一言メモ: {self.name}", "wikidata": self.id}
+        if self.last_visit:
+            params["date"] = self.last_visit
+        return f"{REPO_URL}/issues/new?{urlencode(params, quote_via=quote)}"
 
     @property
     def type(self) -> SiteType | None:
